@@ -1,0 +1,132 @@
+# Interactive visualization of the PlasticMuonTiming setup.
+#
+# Edit this block to preview any geometry before running. All geometry
+# commands must remain before /run/initialize.
+#
+# edgeSiPMsPerEdge = 0, 1, 2, 3, ... while four corner SiPMs remain fixed.
+# The current baseline has 4 corners + 1 per edge = 8 SiPMs.
+
+/detector/sizeX 1000 mm
+/detector/sizeY 1000 mm
+/detector/sizeZ 10 mm
+
+/detector/sipmLength 6.07 mm
+/detector/sipmHeight 6.07 mm
+/detector/sipmPackageLength 6.13 mm
+/detector/sipmPackageHeight 6.13 mm
+/detector/sipmThickness 0.37 mm
+/detector/sipmGain 6.3e6
+
+/detector/edgeSiPMsPerEdge 24
+/detector/arraySiPMsPerSide 6
+
+# Optical photons from scintillation/Cherenkov are tracked to the SiPMs.
+
+/run/initialize
+
+# =====================================================================
+# Visualization
+# =====================================================================
+/vis/open OGLIQt 2048x2048
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+
+# =====================================================================
+# Camera
+#
+# Top view from +Z shows all corner and edge SiPM positions.
+# =====================================================================
+
+/vis/viewer/set/viewpointVector 0 0 1
+/vis/viewer/set/upVector 0 1 0
+
+# For a top view from +Z, useful for checking all four corner SiPMs:
+#
+# /vis/viewer/set/viewpointVector 0 0 1
+# /vis/viewer/set/upVector 0 1 0
+#
+# Then:
+#   +X -> screen right
+#   +Y -> screen up
+
+# Optional oblique view:
+#
+# /vis/viewer/set/viewpointThetaPhi 60 30
+
+# =====================================================================
+# Rendering
+# =====================================================================
+
+/vis/viewer/set/style surface
+/vis/viewer/set/auxiliaryEdge true
+/vis/viewer/set/lineSegmentsPerCircle 100
+
+/vis/geometry/set/visibility WorldLV 0 false
+
+
+# =====================================================================
+# Scene helpers
+# =====================================================================
+/vis/scene/add/axes 0 0 0 250 mm
+/vis/scene/add/scale
+/vis/scene/add/eventID
+
+# Accumulate several muon events in the same scene
+/vis/scene/endOfEventAction accumulate 10
+
+# =====================================================================
+# Trajectories
+# =====================================================================
+/vis/scene/add/trajectories smooth
+
+/vis/modeling/trajectories/create/drawByParticleID
+
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByParticleID-0/default/setStepPtsSize 2
+
+
+# Particle colours
+/vis/modeling/trajectories/drawByParticleID-0/set mu- magenta
+#/vis/modeling/trajectories/drawByParticleID-0/set gamma yellow
+/vis/modeling/trajectories/drawByParticleID-0/set e- red
+/vis/modeling/trajectories/drawByParticleID-0/set e+ blue
+/vis/modeling/trajectories/drawByParticleID-0/set opticalphoton cyan
+
+# Hide gamma trajectories
+/vis/filtering/trajectories/create/particleFilter
+#/vis/filtering/trajectories/particleFilter-0/add gamma
+/vis/filtering/trajectories/particleFilter-0/add opticalphoton
+/vis/filtering/trajectories/particleFilter-0/invert true
+
+# =====================================================================
+# Label
+# =====================================================================
+
+/vis/set/textColour green
+/vis/set/textLayout right
+
+/vis/scene/add/text2D 0.92 -0.91 20 ! ! Plastic Muon Timing
+
+/vis/set/textLayout
+/vis/set/textColour
+
+
+# =====================================================================
+# Refresh
+# =====================================================================
+
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+/vis/viewer/flush
+
+
+# =====================================================================
+# Optional run after visual inspection
+# =====================================================================
+
+# The macro intentionally stops before beamOn. Inspect the geometry first,
+# then type, for example:
+#
+# /source/position 0 0
+# /run/beamOn 1

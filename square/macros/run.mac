@@ -1,0 +1,89 @@
+# ============================================================
+# PlasticMuonTiming
+#
+# Configurable 1-metre baseline:
+#   Plastic scintillator : BC-408
+#   Plastic size         : 1000 x 1000 x 10 mm3
+#   SiPM                  : onsemi MicroFJ-60035-TSV
+#   SiPM active area      : 6.07 x 6.07 mm2
+#   SiPM package          : 6.13 x 6.13 x 0.37 mm3
+#   Layout                : 4 fixed corners + N sensors per edge
+#
+# Primary:
+#   particle              : mu-
+#   kinetic energy        : 4 GeV
+#   direction             : (0,0,-1)
+#   XY position           : set below with /source/position
+# ============================================================
+# ------------------------------------------------------------
+# Detector geometry: BC-408 plastic scintillator
+# ------------------------------------------------------------
+/detector/sizeX 1000 mm
+/detector/sizeY 1000 mm
+/detector/sizeZ 10 mm
+# ------------------------------------------------------------
+# onsemi MicroFJ-60035-TSV active area
+#
+# The plastic corner cut is matched to this active area.
+# ------------------------------------------------------------
+/detector/sipmLength 6.07 mm
+/detector/sipmHeight 6.07 mm
+# ------------------------------------------------------------
+# onsemi MicroFJ-60035-TSV physical package and nominal +6 V gain
+# ------------------------------------------------------------
+/detector/sipmPackageLength 6.13 mm
+/detector/sipmPackageHeight 6.13 mm
+/detector/sipmThickness 0.37 mm
+/detector/sipmGain 6.3e6
+# ------------------------------------------------------------
+# Flexible edge readout
+#
+# 0 -> only four fixed corner SiPMs (4 total)
+# 1 -> one centred SiPM on each edge (8 total; current baseline)
+# 2 -> two SiPMs on each edge (12 total), etc.
+# 12 -> 12 SiPMs on each edge (52 total) -> resolution 8.41 mm
+# 24 -> 24 SiPMs on each edge (100 total) -> resolution 0.97 mm
+#
+# Center region with an array
+# 0 -> no SiPM at the center region
+# 1 -> 1x1 SiPM at the center region
+# 2 -> 2x2 SiPM at the center region
+# 3 -> 3x3 SiPM at the center region
+# 4 -> 4x4 SiPM at the center region
+# ------------------------------------------------------------
+/detector/edgeSiPMsPerEdge 24
+/detector/arraySiPMsPerSide 6
+
+# ============================================================
+# Output mode: full or light mean more or less information in the output file.
+# ============================================================
+/analysis/outputMode light
+
+# ------------------------------------------------------------
+# Initialize geometry and physics
+#
+# Geometry parameters must be set BEFORE /run/initialize.
+# ------------------------------------------------------------
+/run/initialize
+# ------------------------------------------------------------
+# Verbosity
+# ------------------------------------------------------------
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+# ------------------------------------------------------------
+# Progress printout
+# ------------------------------------------------------------
+/run/printProgress 10
+# ------------------------------------------------------------
+# Simulation
+# ------------------------------------------------------------
+/source/randomXY true
+/random/setSeeds 12375 67920
+#/source/position 0 0 500 mm
+/source/xMin -500 mm
+/source/xMax 500 mm
+/source/yMin -500 mm
+/source/yMax 500 mm
+/run/beamOn 5000

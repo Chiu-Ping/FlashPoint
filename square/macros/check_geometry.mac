@@ -1,0 +1,21 @@
+# Fast non-graphical geometry preflight. Keep this block synchronized with
+# the geometry you want to test, then run plasticMuon with this macro.
+
+/detector/sizeX 1000 mm
+/detector/sizeY 1000 mm
+/detector/sizeZ 10 mm
+
+/detector/sipmLength 6.07 mm
+/detector/sipmHeight 6.07 mm
+/detector/sipmPackageLength 6.13 mm
+/detector/sipmPackageHeight 6.13 mm
+/detector/sipmThickness 0.37 mm
+/detector/sipmGain 6.3e6
+
+/detector/edgeSiPMsPerEdge 1
+
+/process/em/verbose 0
+/process/had/verbose 0
+/run/initialize
+
+# No beamOn: initialization performs the placement overlap checks and exits.

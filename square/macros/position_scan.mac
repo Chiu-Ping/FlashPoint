@@ -1,0 +1,29 @@
+# Random-XY sample for position-reconstruction training and testing.
+# Start with 10,000-20,000 events; increase after checking runtime and files.
+
+/detector/sizeX 1000 mm
+/detector/sizeY 1000 mm
+/detector/sizeZ 10 mm
+
+/detector/sipmLength 6.07 mm
+/detector/sipmHeight 6.07 mm
+/detector/sipmPackageLength 6.13 mm
+/detector/sipmPackageHeight 6.13 mm
+/detector/sipmThickness 0.37 mm
+/detector/sipmGain 6.3e6
+
+# Change this to compare 0, 1, 2, 3, 4, ... edge sensors per edge.
+/detector/edgeSiPMsPerEdge 1
+
+/run/initialize
+
+/source/randomXY true
+/analysis/setFileName sipm_position_scan
+
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+/run/printProgress 100
+
+/run/beamOn 20000

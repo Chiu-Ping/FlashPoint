@@ -1,0 +1,115 @@
+# ============================================================
+# FlashPointHexShape
+#
+# Configurable regular-hexagon baseline:
+#   Plastic scintillator : BC-408
+#   Hex edge length      : 400 mm
+#   Plastic thickness    : 10 mm
+#   SiPM                  : onsemi MicroFJ-60035-TSV
+#   SiPM active area      : 6.07 x 6.07 mm2
+#   SiPM package          : 6.13 x 6.13 x 0.37 mm3
+#   Layout                : 6 fixed vertices + 1 centred sensor per edge
+#
+# Primary:
+#   particle              : mu-
+#   kinetic energy        : 4 GeV
+#   direction             : (0,0,-1)
+#   XY position           : set below with /source/position
+# ============================================================
+# ------------------------------------------------------------
+# Detector geometry: regular hexagonal BC-408 plastic scintillator
+# ------------------------------------------------------------
+/detector/edgeLength 620.4 mm
+/detector/thickness 10 mm
+# ------------------------------------------------------------
+# onsemi MicroFJ-60035-TSV active area
+#
+# Each plastic vertex contact face is matched to this active length.
+# ------------------------------------------------------------
+/detector/sipmLength 6.07 mm
+/detector/sipmHeight 6.07 mm
+# ------------------------------------------------------------
+# onsemi MicroFJ-60035-TSV physical package and nominal +6 V gain
+# ------------------------------------------------------------
+/detector/sipmPackageLength 6.13 mm
+/detector/sipmPackageHeight 6.13 mm
+/detector/sipmThickness 0.37 mm
+/detector/sipmGain 6.3e6
+# ------------------------------------------------------------
+# Edge readout (the six vertex SiPMs are always present)
+#
+# 0 -> only six fixed vertex SiPMs (6 total)
+# 1 -> one centred SiPM on each edge (12 total; requested baseline)
+# 2 -> two SiPMs on each edge (18 total), etc.
+# ------------------------------------------------------------
+/detector/edgeSiPMsPerEdge 1
+
+# ------------------------------------------------------------
+# Central +Z-face SiPM layout
+# 0 = disabled
+# 2 = only 1/2                    -> 1 central SiPM
+# 3 = 1/3, 2/3                   -> 6 central SiPMs
+# 4 = 1/4, 2/4, 3/4             -> 7 central SiPMs
+#     (2/4 is shared center)
+# 5 = 1/5, 2/5, 3/5, 4/5        -> 12 central SiPMs
+# 6 = 1/6,...,5/6                -> 13 central SiPMs
+#     (3/6 is shared center)
+# ------------------------------------------------------------
+/detector/centralSiPMDivisions 3
+
+# ------------------------------------------------------------
+# Using ring mode to set tne central SiPMs
+# \(x=p\left(q+\frac{r}{2}\right), y=p\frac{\sqrt3}{2}r ,\)
+# \(N_{\rm center}=1+3R(R+1).\)
+# rings = 0 ->  1 SiPM
+# rings = 1 ->  7 SiPMs
+# rings = 2 -> 19 SiPMs
+# rings = 3 -> 37 SiPMs
+# rings = 4 -> 61 SiPMs
+# ------------------------------------------------------------
+/detector/centralSiPMMode ring
+/detector/centralSiPMRings 3
+/detector/centralSiPMPitch 150 mm
+
+# ------------------------------------------------------------
+# Output mode: full or light mean more or less information in the output file.
+# ------------------------------------------------------------
+/analysis/outputMode light
+
+# ------------------------------------------------------------
+# Initialize geometry and physics
+#
+# Geometry parameters must be set BEFORE /run/initialize.
+# ------------------------------------------------------------
+/run/initialize
+# ------------------------------------------------------------
+# Verbosity
+# ------------------------------------------------------------
+/control/verbose 1
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+# ------------------------------------------------------------
+# Progress printout
+# ------------------------------------------------------------
+/run/printProgress 10
+# ------------------------------------------------------------
+# Simulation
+# ------------------------------------------------------------
+/source/randomXY true
+#/source/position 0 0
+
+# ------------------------------------------------------------
+# setup for edge length 400mm
+#/source/xMin -400 mm
+#/source/xMax 400 mm
+#/source/yMin -346.410162 mm
+#/source/yMax 346.410162 mm
+
+# ------------------------------------------------------------
+# setup for edge length 620.4mm to match with 1m2
+/source/xMin -620.4 mm
+/source/xMax 620.4 mm
+/source/yMin -537.285 mm
+/source/yMax 537.285 mm
+/run/beamOn 10000

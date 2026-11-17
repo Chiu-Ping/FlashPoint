@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - -I/Volumes/ExtremeSSD/Software/PlasticMuonTiming/include
+    - -I/Volumes/ExtremeSSD/Software/geant4-install/include/Geant4
+    - -I/cvmfs/sft.cern.ch/lcg/releases/clhep/2.4.7.2-b5151/x86_64-el9-gcc13-opt/include/CLHEP
+Index:
+  Background: Skip

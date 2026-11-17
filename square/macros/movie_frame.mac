@@ -1,0 +1,5 @@
+/vis/viewer/set/viewpointThetaPhi 60 {phi}
+
+/vis/viewer/refresh
+
+/vis/ogl/export
