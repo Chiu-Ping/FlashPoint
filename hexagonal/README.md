@@ -1,4 +1,4 @@
-# FlashPointHexShape
+# FlashPointHexagonal
 
 Geant4 optical simulation of a regular hexagonal BC-408 plastic scintillator
 with configurable side-coupled 6 mm SiPM readout. The requested baseline has

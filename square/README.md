@@ -1,4 +1,4 @@
-# PlasticMuonTiming
+# FlashPointSquare
 
 Geant4 optical simulation of a 100 cm x 100 cm x 1 cm BC-408 plastic
 scintillator with configurable side-coupled 6 mm SiPM readout. The four
