@@ -44,7 +44,7 @@ in the corresponding directories.
 
 ## Associated Publication
 
-**FlashPoint: Toward High-Resolution Muon Detection in Large-Area Monolithic Plastic Scintillators**
+**FlashPoint: Joint Optimization of SiPM Layout and Early Photon Timing for Muon Localization in Large-Area Monolithic Plastic Scintillators**
 
 Manuscript in preparation.
 
